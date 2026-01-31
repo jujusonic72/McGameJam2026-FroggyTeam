@@ -990,6 +990,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 8772072806958775779, guid: a3b6e52b5dfd14f41827759613b8d0a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f17a587b6b537b3429b3d38f79b5ba6a, type: 2}
     - target: {fileID: 8994802509888114883, guid: a3b6e52b5dfd14f41827759613b8d0a6, type: 3}
       propertyPath: maxTurn
       value: 50
