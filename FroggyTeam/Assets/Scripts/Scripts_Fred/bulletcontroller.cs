@@ -125,7 +125,7 @@ public class bulletcontroller : MonoBehaviour
     {
         float angle = Vector3.Angle(-gameObject.transform.forward, collision.contacts[0].normal);
 
-        Vector3 direction = Quaternion.AngleAxis(angle, Vector3.up) * -gameObject.transform.forward;
+        Vector3 direction = Quaternion.AngleAxis(angle * 2, Vector3.up) * -gameObject.transform.forward;
 
         //TODO: DID NOT FIGURE OUT HOW TO CALCULATE THE ANGLE, TO CHECK
         transform.forward = collision.contacts[0].normal;
