@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class bulletcontroller : MonoBehaviour
 {
@@ -80,7 +81,40 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("hit");
+        CheckCollision(collision.gameObject);
+    }
+
+    private void CheckCollision(GameObject collision)
+    {
+        switch (collision.tag)
+        {
+            case "Target":
+                OnHitTarget(collision);
+                break;
+            case "Reflect":
+                OnHitReflect();
+                break;
+            default:
+                OnHitEnvironment();
+                break;
+        }
+    }
+
+    private void OnHitEnvironment()
+    {
+        print("Env");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnHitTarget(GameObject collision)
+    {
+        print("Tar");
+        collision.GetComponentInParent<TargetBehaviour>().OnTargetHit();
+    }
+
+    private void OnHitReflect()
+    {
+        print("Ref");
     }
 
 }
