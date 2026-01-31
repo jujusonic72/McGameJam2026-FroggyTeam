@@ -27,11 +27,6 @@ public class bulletcontroller : MonoBehaviour
     private float rotation_input;
     private float forward_input = 0.0f;
 
-    private void Start()
-    {
-
-    }
-
     private void OnEnable()
     {
         _inputs = new InputSystem_Actions();
@@ -95,6 +90,7 @@ public class bulletcontroller : MonoBehaviour
         {
             StartCoroutine(WaitForCam());
             bulletCamera.StartCamMovement();
+            Debug.Log(GameManager.instance.bulletColor);
         }
         
         Vector3 move = new Vector3(0, 0, forward_input);
