@@ -18,13 +18,19 @@ public class CameraMovement : MonoBehaviour
     {
         if (canMove)
         {
-            transform.position = Vector3.Lerp(transform.position, cameraAnchor.transform.position, 0.05f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, cameraAnchor.transform.rotation, 0.05f);
-
             if (Vector3.Distance(transform.position, cameraAnchor.transform.position) < 0.5f) {
                 transform.position = cameraAnchor.transform.position;
                 transform.rotation = cameraAnchor.transform.rotation;
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(canMove)
+        {
+            transform.position = Vector3.Lerp(transform.position, cameraAnchor.transform.position, 0.05f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, cameraAnchor.transform.rotation, 0.05f);
         }
     }
 }
