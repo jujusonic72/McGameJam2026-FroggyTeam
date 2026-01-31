@@ -1,5 +1,6 @@
 using System;
 using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -92,15 +93,21 @@ public class bulletcontroller : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            forward_input = forwardSpeed;
-            bulletCamera.canMove = true;
+            StartCoroutine(WaitForCam());
+            bulletCamera.StartCamMovement();
         }
-
+        
         Vector3 move = new Vector3(0, 0, forward_input);
 
         GetComponent<Rigidbody>().linearVelocity = (transform.forward * forward_input);
 
         //transform.Translate(move * 5.0f * Time.deltaTime, Space.Self);
+    }
+
+    private IEnumerator WaitForCam()
+    {
+        yield return new WaitForSeconds(1);
+        forward_input = forwardSpeed;
     }
 
     private void OnCollisionEnter(Collision collision)

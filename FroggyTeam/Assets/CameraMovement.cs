@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -18,13 +19,24 @@ public class CameraMovement : MonoBehaviour
     {
         if (canMove)
         {
-            transform.position = Vector3.Lerp(transform.position, cameraAnchor.transform.position, 0.05f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, cameraAnchor.transform.rotation, 0.05f);
-
-            if (Vector3.Distance(transform.position, cameraAnchor.transform.position) < 0.5f) {
-                transform.position = cameraAnchor.transform.position;
-                transform.rotation = cameraAnchor.transform.rotation;
-            }
+            transform.position = cameraAnchor.transform.position;
+            transform.rotation = cameraAnchor.transform.rotation;
         }
+    }
+    
+    public void StartCamMovement()
+    {
+        StartCoroutine(GetCamToSpot());
+    }
+
+    private IEnumerator GetCamToSpot()
+    {
+        while(Vector3.Distance(transform.position, cameraAnchor.transform.position) > 0.1f)
+        {
+            transform.position = Vector3.Lerp(transform.position, cameraAnchor.transform.position, 1f * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, cameraAnchor.transform.rotation, 1f * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        canMove = true;
     }
 }
