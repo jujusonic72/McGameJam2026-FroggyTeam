@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private string nextLevel;
+
+    [SerializeField]
+    public static GameObject canvaMenu;
 
     [SerializeField]
     private GameObject loseScreen;
@@ -46,32 +50,57 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        SceneManager.sceneLoaded += OnLoad;
-        if (instance == null) { instance = this; }
-        else if (instance != this)
+        if (instance != this && instance != null) 
         {
+            Debug.Log("Destroying duplicate GameManager");
             Destroy(this);
         }
-        if (instance != null) DontDestroyOnLoad(instance);
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0) || SceneManager.GetActiveScene().name.Contains("Gym"))
+        else if (instance == null || instance == this)
         {
-            targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
-
-            foreach (var target in targets)
-            {
-                print(target.gameObject.name);
-            }
-            DiceRollText.text = "Rolling Dice...";
-            PrizeWonText.text = "";
-            rolled = false;
-
-            _hasFinishedReset = true;
+            Debug.Log("Either Setting the first game manager or making sure it is subscribed to SceneLoaded");
+            instance = this;
+            DontDestroyOnLoad(instance);
+            SceneManager.sceneLoaded += OnLoad;
         }
+
+        
+        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0) || SceneManager.GetActiveScene().name.Contains("Gym"))
+        //{
+        //    targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
+
+        //    foreach (var target in targets)
+        //    {
+        //        print(target.gameObject.name);
+        //    }
+        //    DiceRollText.text = "Rolling Dice...";
+        //    PrizeWonText.text = "";
+        //    rolled = false;
+
+        //    _hasFinishedReset = true;
+        //}
 
     }
     private void OnLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
+        if (fade == null)
+        {
+            fade = GameObject.Find("Canvas").GetComponentInChildren<BlackFadeBehaviour>();
+        }
+        if (winScreen == null)
+        {
+            winScreen = GameObject.Find("Canvas").transform.Find("WinScreen").gameObject;
+            winScreen.transform.Find("Continue").GetComponent<Button>().onClick.AddListener(OnPressNext);
+        }
+        if(loseScreen == null)
+        {
+            loseScreen = GameObject.Find("Canvas").transform.Find("LoseScreen").gameObject;
+            loseScreen.transform.Find("Retru").GetComponent<Button>().onClick.AddListener(OnPressRetry);
+        }
+
+        if (bulletcontroller == null)
+        {
+            bulletcontroller = GameObject.Find("Bullet").GetComponent<bulletcontroller>();
+        }
         targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
 
         foreach (var target in targets)
@@ -79,8 +108,12 @@ public class GameManager : MonoBehaviour
             print(target.gameObject.name);
         }
         hasWon = false;
-        DiceRollText.text = "Rolling Dice...";
-        PrizeWonText.text = "";
+        if (DiceRollText != null) DiceRollText.text = "Rolling Dice...";
+        else Debug.Log("DiceRollText is null");
+
+        if (PrizeWonText != null) PrizeWonText.text = "";
+        else Debug.Log("PrizeWonText is null");
+
         rolled = false;
 
         _hasFinishedReset = true;
