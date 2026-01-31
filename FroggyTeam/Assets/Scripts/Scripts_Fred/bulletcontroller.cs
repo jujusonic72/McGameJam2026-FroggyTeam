@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -25,6 +26,11 @@ public class bulletcontroller : MonoBehaviour
     private float rotation_input;
     private float forward_input = 0.0f;
 
+    private void Start()
+    {
+
+    }
+
     private void OnEnable()
     {
         _inputs = new InputSystem_Actions();
@@ -35,7 +41,7 @@ public class bulletcontroller : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         rotation_input = context.ReadValue<Vector2>().x;
-        
+
         /*if(context.ReadValue<Vector2>().y > 0.0f)
         {
             forward_input = context.ReadValue<Vector2>().y;
@@ -88,12 +94,6 @@ public class bulletcontroller : MonoBehaviour
         {
             forward_input = forwardSpeed;
             bulletCamera.canMove = true;
-        }
-
-        //Continue à slide rn comme une balle, W est basically juste pour tirer
-        if (Input.GetKey(KeyCode.W))
-        {
-            forward_input = turnRate;
         }
 
         Vector3 move = new Vector3(0, 0, forward_input);
@@ -153,7 +153,6 @@ public class bulletcontroller : MonoBehaviour
 
         Vector3 direction = Quaternion.AngleAxis(angle * 2, Vector3.up) * -gameObject.transform.forward;
 
-        //TODO: DID NOT FIGURE OUT HOW TO CALCULATE THE ANGLE, TO CHECK
         transform.forward = direction;
         print(angle);
     }
