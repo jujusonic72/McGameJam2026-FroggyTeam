@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     private bulletcontroller bulletcontroller;
 
     private bool hasWon;
+    private bool hasLost;
     private bool rolled = false;
 
     private int diceRoll;
@@ -56,12 +57,17 @@ public class GameManager : MonoBehaviour
             Debug.Log("Destroying duplicate GameManager");
             Destroy(this);
         }
-        else if (instance == null || instance == this)
+        if (instance == this)
+        {
+            DontDestroyOnLoad(instance);
+            SceneManager.sceneLoaded += OnLoad;
+        }
+        else if (instance == null)
         {
             Debug.Log("Either Setting the first game manager or making sure it is subscribed to SceneLoaded");
             instance = this;
-            DontDestroyOnLoad(instance);
             SceneManager.sceneLoaded += OnLoad;
+            DontDestroyOnLoad(instance);
         }
 
         
@@ -83,18 +89,19 @@ public class GameManager : MonoBehaviour
     }
     private void OnLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
+        Debug.Log("GameManager detected scene load: " + scene.name);
         if (fade == null)
         {
-            fade = GameObject.Find("Canvas").GetComponentInChildren<BlackFadeBehaviour>();
+            fade = GameObject.Find("CanvasInLevel").GetComponentInChildren<BlackFadeBehaviour>();
         }
         if (winScreen == null)
         {
-            winScreen = GameObject.Find("Canvas").transform.Find("WinScreen").gameObject;
+            winScreen = GameObject.Find("CanvasInLevel").transform.Find("WinScreen").gameObject;
             winScreen.transform.Find("Continue").GetComponent<Button>().onClick.AddListener(OnPressNext);
         }
         if(loseScreen == null)
         {
-            loseScreen = GameObject.Find("Canvas").transform.Find("LoseScreen").gameObject;
+            loseScreen = GameObject.Find("CanvasInLevel").transform.Find("LoseScreen").gameObject;
             loseScreen.transform.Find("Retru").GetComponent<Button>().onClick.AddListener(OnPressRetry);
         }
 
@@ -109,6 +116,7 @@ public class GameManager : MonoBehaviour
             print(target.gameObject.name);
         }
         hasWon = false;
+        hasLost = false;
         if (DiceRollText != null) DiceRollText.text = "Rolling Dice...";
         else Debug.Log("DiceRollText is null");
 
@@ -123,7 +131,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(targets.Count <= 0 && !hasWon)
+        if (SceneManager.GetActiveScene().isLoaded && !_hasFinishedReset)
+        {
+            OnLoad(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        }
+        if (targets.Count <= 0 && !hasWon)
         if(targets.Count <= 0 && _hasFinishedReset)
         {
             OnWin();
@@ -135,6 +147,11 @@ public class GameManager : MonoBehaviour
         if (hasWon && (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()) )
         {
             OnPressNext();
+        }
+
+        if(hasLost && (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()))
+        {
+            OnPressRetry();
         }
     }
 
@@ -151,6 +168,7 @@ public class GameManager : MonoBehaviour
     public void OnLose()
     {
         loseScreen.SetActive(true);
+        hasLost = true;
     }
 
     public void OnPressRetry()
