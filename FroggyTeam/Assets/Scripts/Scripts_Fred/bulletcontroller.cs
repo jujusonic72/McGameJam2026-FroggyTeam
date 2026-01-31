@@ -123,12 +123,15 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnHitReflect(Collision collision)
     {
-        float angle = Vector3.Angle(-gameObject.transform.forward, collision.contacts[0].normal);
+        float angle = Vector3.SignedAngle(-gameObject.transform.forward, collision.contacts[0].normal, Vector3.up);
+
+        float angleFactor = Mathf.Sign(collision.contacts[0].normal.x) * Mathf.Sign(collision.contacts[0].normal.z);
+
 
         Vector3 direction = Quaternion.AngleAxis(angle * 2, Vector3.up) * -gameObject.transform.forward;
 
         //TODO: DID NOT FIGURE OUT HOW TO CALCULATE THE ANGLE, TO CHECK
-        transform.forward = collision.contacts[0].normal;
+        transform.forward = direction;
         print(angle);
     }
 
