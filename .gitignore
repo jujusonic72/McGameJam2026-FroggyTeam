@@ -3,14 +3,14 @@
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
 .utmp/
-/Library/
-/Temp/
-/Obj/
-/Build/
-/Builds/
-/Logs/
-/UserSettings/
-*.log
+/FroggyTeam/Library/
+/FroggyTeam/Temp/
+/FroggyTeam/Obj/
+/FroggyTeam/Build/
+/FroggyTeam/Builds/
+/FroggyTeam/Logs/
+/FroggyTeam/UserSettings/
+*FroggyTeam/.log
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1
