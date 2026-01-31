@@ -162,7 +162,8 @@ public class bulletcontroller : MonoBehaviour
 
         //TODO: DID NOT FIGURE OUT HOW TO CALCULATE THE ANGLE, TO CHECK
         transform.forward = direction;
-        print(angle);
+
+        collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 
 }
