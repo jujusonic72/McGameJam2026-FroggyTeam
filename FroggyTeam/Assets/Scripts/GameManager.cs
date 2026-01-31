@@ -2,11 +2,24 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
     public List<TargetBehaviour> targets = new List<TargetBehaviour>();
+
+    [SerializeField]
+    private string nextLevel;
+
+    [SerializeField]
+    private GameObject loseScreen;
+
+    [SerializeField]
+    private GameObject winScreen;
+
+    [SerializeField]
+    private bulletcontroller bulletcontroller;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,10 +38,28 @@ public class GameManager : MonoBehaviour
         {
             OnWin();
         }
+
+        if(Input.GetKeyDown(KeyCode.R)) OnPressRetry();
     }
 
     void OnWin()
     {
-        print("Win");
+        winScreen.SetActive(true);
+        bulletcontroller.StopBullet();
+    }
+
+    public void OnLose()
+    {
+        loseScreen.SetActive(true);
+    }
+
+    public void OnPressRetry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OnPressNext()
+    {
+        SceneManager.LoadScene(nextLevel);
     }
 }

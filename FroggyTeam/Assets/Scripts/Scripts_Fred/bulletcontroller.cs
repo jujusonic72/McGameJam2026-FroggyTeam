@@ -103,8 +103,17 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnHitEnvironment()
     {
-        print("Env");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StopBullet();
+
+        FindFirstObjectByType<GameManager>().OnLose();
+    }
+
+    public void StopBullet()
+    {
+        forward_input = 0;
+        forwardSpeed = 0;
+        rotation_input = 0;
+        turnRate = 0;
     }
 
     private void OnHitTarget(GameObject collision)
