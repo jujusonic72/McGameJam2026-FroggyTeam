@@ -12,7 +12,7 @@ public class bulletcontroller : MonoBehaviour
     float forwardSpeed = 5.0f;
 
     [SerializeField]
-    Camera bulletCamera;
+    CameraMovement bulletCamera;
 
     private InputSystem_Actions _inputs;
     private float rotation_input;
@@ -64,6 +64,7 @@ public class bulletcontroller : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             forward_input = forwardSpeed;
+            bulletCamera.canMove = true;
         }
 
         //Continue à slide rn comme une balle, W est basically juste pour tirer
@@ -117,7 +118,7 @@ public class bulletcontroller : MonoBehaviour
 
         Vector3 direction = Quaternion.AngleAxis(angle, Vector3.up) * -gameObject.transform.forward;
 
-        //DID NOT FIGURE OUT HOW TO CALCULATE THE ANGLE, TO CHECK
+        //TODO: DID NOT FIGURE OUT HOW TO CALCULATE THE ANGLE, TO CHECK
         transform.forward = collision.contacts[0].normal;
         print(angle);
     }
