@@ -81,18 +81,18 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        CheckCollision(collision.gameObject);
+        CheckCollision(collision);
     }
 
-    private void CheckCollision(GameObject collision)
+    private void CheckCollision(Collision collision)
     {
-        switch (collision.tag)
+        switch (collision.gameObject.tag)
         {
             case "Target":
-                OnHitTarget(collision);
+                OnHitTarget(collision.gameObject);
                 break;
             case "Reflect":
-                OnHitReflect();
+                OnHitReflect(collision);
                 break;
             default:
                 OnHitEnvironment();
@@ -108,13 +108,18 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnHitTarget(GameObject collision)
     {
-        print("Tar");
         collision.GetComponentInParent<TargetBehaviour>().OnTargetHit();
     }
 
-    private void OnHitReflect()
+    private void OnHitReflect(Collision collision)
     {
-        print("Ref");
+        float angle = Vector3.Angle(-gameObject.transform.forward, collision.contacts[0].normal);
+
+        Vector3 direction = Quaternion.AngleAxis(angle, Vector3.up) * -gameObject.transform.forward;
+
+        //DID NOT FIGURE OUT HOW TO CALCULATE THE ANGLE, TO CHECK
+        transform.forward = collision.contacts[0].normal;
+        print(angle);
     }
 
 }
