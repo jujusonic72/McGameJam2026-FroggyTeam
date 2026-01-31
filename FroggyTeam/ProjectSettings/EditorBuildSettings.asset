@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scenes_MP/LevelSpirale.unity
     guid: 4319a8d6423a9e340893509894eca607
+  - enabled: 1
+    path: Assets/Scenes/menuSaad/endScreen.unity
+    guid: 9282eb79105295f419bb7950b9a6e6e3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
