@@ -6,7 +6,14 @@ using UnityEngine.SceneManagement;
 public class bulletcontroller : MonoBehaviour
 {
     [SerializeField]
-    float turnRate = 5.0f;
+    float turnRate = 0.1f;
+
+    float currentTurn = 0f;
+    private int turnDirection = 0;
+
+
+    [SerializeField]
+    float maxTurn = 5.0f;
 
     [SerializeField]
     float forwardSpeed = 5.0f;
@@ -43,22 +50,38 @@ public class bulletcontroller : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if(forward_input != 0.0f) transform.Rotate(Vector3.up, rotation_input * turnRate * Time.deltaTime);
+        if(turnDirection == 0)
+        {
+            currentTurn = 0f;
+        }
+        else if(turnDirection == 1)
+        {
+            currentTurn = Mathf.Min(currentTurn + turnRate, maxTurn);
+        }
+        else
+        {
+            currentTurn = Mathf.Max(currentTurn - turnRate, -maxTurn);
+        }
+
+        if (forward_input != 0.0f) transform.Rotate(Vector3.up, currentTurn * Time.deltaTime);
     }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.D))
         {
-            rotation_input = turnRate;
+            //rotation_input = turnRate;
+            turnDirection = 1;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            rotation_input = -turnRate;
+            //rotation_input = -turnRate;
+            turnDirection = -1;
         }
         else
         {
-            rotation_input = 0.0f;
+            //rotation_input = 0.0f;
+            turnDirection = 0;
         }
 
         if (Input.GetKey(KeyCode.Space))
