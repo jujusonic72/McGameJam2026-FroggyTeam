@@ -33,8 +33,8 @@ public class CameraMovement : MonoBehaviour
     {
         while(Vector3.Distance(transform.position, cameraAnchor.transform.position) > 0.1f)
         {
-            transform.position = Vector3.Lerp(transform.position, cameraAnchor.transform.position, 0.001f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, cameraAnchor.transform.rotation, 0.001f);
+            transform.position = Vector3.Lerp(transform.position, cameraAnchor.transform.position, 1f * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, cameraAnchor.transform.rotation, 1f * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
         canMove = true;
