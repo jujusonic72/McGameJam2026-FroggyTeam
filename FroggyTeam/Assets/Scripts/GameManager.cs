@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public List<TargetBehaviour> targets = new List<TargetBehaviour>();
 
     [SerializeField]
+    private BlackFadeBehaviour fade;
+
+    [SerializeField]
     private string nextLevel;
 
     [SerializeField]
@@ -21,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bulletcontroller bulletcontroller;
 
+    private bool hasWon;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,14 +33,16 @@ public class GameManager : MonoBehaviour
         {
             print(target.gameObject.name);
         }
+        hasWon = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(targets.Count <= 0)
+        if(targets.Count <= 0 && !hasWon)
         {
             OnWin();
+            hasWon=true;
         }
 
         if(Input.GetKeyDown(KeyCode.R)) OnPressRetry();
@@ -55,11 +61,15 @@ public class GameManager : MonoBehaviour
 
     public void OnPressRetry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StartCoroutine(fade.LevelEndFade(SceneManager.GetActiveScene().name));
+        loseScreen.SetActive(false);
+        winScreen.SetActive(false);
     }
 
     public void OnPressNext()
     {
-        SceneManager.LoadScene(nextLevel);
+        StartCoroutine(fade.LevelEndFade(nextLevel));
+        loseScreen.SetActive(false);
+        winScreen.SetActive(false);
     }
 }
