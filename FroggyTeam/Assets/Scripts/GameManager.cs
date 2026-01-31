@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -97,6 +98,11 @@ public class GameManager : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.R)) OnPressRetry();
+
+        if (hasWon && (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()) )
+        {
+            OnPressNext();
+        }
     }
 
     void OnWin()
@@ -150,37 +156,31 @@ public class GameManager : MonoBehaviour
             case 1:
                 PrizeWonText.text = "You won Item 1";
                 bulletColor = Color.red;
-                Debug.Log("New Color: " + bulletColor);
                 break;
 
             case 2:
                 PrizeWonText.text = "You won Item 2";
                 bulletColor = Color.cyan;
-                Debug.Log("New color: " + bulletColor);
                 break;
 
             case 3:
                 PrizeWonText.text = "You won Item 3";
                 bulletColor = Color.green;
-                Debug.Log("New color: " + bulletColor);
                 break;
 
             case 4:
                 PrizeWonText.text = "You won Item 4";
                 bulletColor = Color.blue;
-                Debug.Log("New color: " + bulletColor);
                 break;
 
             case 5:
                 PrizeWonText.text = "You won Item 5";
                 bulletColor = Color.magenta;
-                Debug.Log("New color: " + bulletColor);
                 break;
 
             case 6:
                 PrizeWonText.text = "You won Item 6";
                 bulletColor = Color.yellow;
-                Debug.Log("New color: " + bulletColor);
                 break;
 
             default:

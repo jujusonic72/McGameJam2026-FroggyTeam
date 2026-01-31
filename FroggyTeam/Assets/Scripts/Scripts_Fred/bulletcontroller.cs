@@ -1,9 +1,6 @@
-using System;
-using Unity.VisualScripting;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class bulletcontroller : MonoBehaviour
 {
@@ -26,6 +23,8 @@ public class bulletcontroller : MonoBehaviour
     private InputSystem_Actions _inputs;
     private float rotation_input;
     private float forward_input = 0.0f;
+
+    private Vector2 leftStick;
 
     private void OnEnable()
     {
@@ -70,12 +69,22 @@ public class bulletcontroller : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Gamepad.current != null)
+        {
+            leftStick = Gamepad.current.leftStick.ReadValue();
+        }
+        else
+        {
+            Debug.Log("No gamepad connected.");
+        }
+
+
+        if (Input.GetKey(KeyCode.D) || Gamepad.current.leftStick.ReadValue().x > 0.0f)
         {
             //rotation_input = turnRate;
             turnDirection = 1;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) || Gamepad.current.leftStick.ReadValue().x < 0.0f)
         {
             //rotation_input = -turnRate;
             turnDirection = -1;
@@ -86,11 +95,10 @@ public class bulletcontroller : MonoBehaviour
             turnDirection = 0;
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed())
         {
             StartCoroutine(WaitForCam());
             bulletCamera.StartCamMovement();
-            Debug.Log(GameManager.instance.bulletColor);
         }
         
         Vector3 move = new Vector3(0, 0, forward_input);
