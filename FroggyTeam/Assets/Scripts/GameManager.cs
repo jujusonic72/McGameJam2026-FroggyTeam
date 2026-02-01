@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> skinPanels;
 
     [SerializeField]
-    private List<SkinObject> skins;
+    public List<SkinObject> skins;
 
     [SerializeField]
     private Sprite lockedSkinIcon;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     public bulletcontroller bulletcontroller;
 
     [SerializeField]
-    private int currentSkinIndex = 0;
+    public int currentSkinIndex = 0;
 
 
     private bool hasWon;
@@ -78,6 +78,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip bgMusic;
+    [SerializeField]
+    private AudioClip failSound;
+    [SerializeField]
+    private AudioClip winSound;
+    [SerializeField]
+    private AudioClip reload;
+    [SerializeField]
+    public AudioClip shoot;
+
     private bool isSkinSelectOpen = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -161,7 +170,7 @@ public class GameManager : MonoBehaviour
         else Debug.Log("PrizeWonText is null");
 
         rolled = false;
-
+        transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(reload, false);
         _hasFinishedReset = true;
     }
     private void OnLoad(Scene scene, LoadSceneMode loadSceneMode)
@@ -203,6 +212,7 @@ public class GameManager : MonoBehaviour
         {
             OnWin();
             hasWon = true;
+            transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(winSound, false);
         }
     }
     // Update is called once per frame
@@ -260,6 +270,7 @@ public class GameManager : MonoBehaviour
 
     public void OnLose()
     {
+        transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(failSound, false);
         loseScreen.SetActive(true);
         hasLost = true;
     }
@@ -335,32 +346,32 @@ public class GameManager : MonoBehaviour
         switch (diceRoll)
         {
             case 1:
-                PrizeWonText.text = "You won Red Bullet Skin";
+                PrizeWonText.text = "You won the Classic Bullet Skin";
                 skins[0].isUnlocked = true;
                 break;
 
             case 2:
-                PrizeWonText.text = "You won Cyan Bullet Skin";
+                PrizeWonText.text = "You won the Bazooka Bullet Skin";
                 skins[1].isUnlocked = true;
                 break;
 
             case 3:
-                PrizeWonText.text = "You won Green Bullet Skin";
+                PrizeWonText.text = "You won the Horse Bullet Skin";
                 skins[2].isUnlocked = true;
                 break;
 
             case 4:
-                PrizeWonText.text = "You won Blue Bullet Skin";
+                PrizeWonText.text = "You won the Nerf Bullet Skin";
                 skins[3].isUnlocked = true;
                 break;
 
             case 5:
-                PrizeWonText.text = "You won Magenta Bullet Skin";
+                PrizeWonText.text = "You won the Roblox Bullet Skin";
                 skins[4].isUnlocked = true;
                 break;
 
             case 6:
-                PrizeWonText.text = "You won Yellow Bullet Skin";
+                PrizeWonText.text = "You won Shotgun Bullet Skin";
                 skins[5].isUnlocked = true;
                 break;
 
@@ -370,5 +381,14 @@ public class GameManager : MonoBehaviour
 
         }
         RefreshBulletSkins();
+    }
+    private void OnApplicationQuit()
+    {
+        instance = null;
+        foreach (var skin in skins)
+        {
+            skin.isUnlocked = false;
+        }
+        skins[0].isUnlocked = true;
     }
 }

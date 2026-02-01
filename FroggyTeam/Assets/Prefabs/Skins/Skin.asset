@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f496ce1fa5bb7744cbb8f8fb1c0cfc2e, type: 3}
   m_Name: Skin
   m_EditorClassIdentifier: 
-  skinName: Red Bullet
+  skinName: Classic Bullet
   skinIcon: {fileID: 0}
   skinIndex: 0
   skinScale: 0.5
   skinMesh: {fileID: 919132149155446097, guid: 48adf070321a76a45b4ff7cd9023fbce, type: 3}
   skinMaterial: {fileID: -7791486788655378091, guid: 48adf070321a76a45b4ff7cd9023fbce, type: 3}
   isUnlocked: 1
+  skinSoundEffect: {fileID: 0}
