@@ -71,8 +71,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8ab3881233a91ec4ab4ad30b3c31f020, type: 2}
   lockedSkinIcon: {fileID: 0}
   bulletcontroller: {fileID: 0}
-  bulletColor: {r: 0, g: 0, b: 0, a: 0}
+  currentSkinIndex: 0
+  bulletRender: {fileID: 0}
+  CurrentBullet: {fileID: 0}
   bgMusic: {fileID: 8300000, guid: f66dded401a605642b706e2ff53d9d99, type: 3}
+  failSound: {fileID: 8300000, guid: d1a85ec8b98e654409207bb14fc6dac2, type: 3}
+  winSound: {fileID: 8300000, guid: b57e76273f9278d458c6a7edbd2b1354, type: 3}
+  reload: {fileID: 8300000, guid: 67a60bd4f217f3849a73080d2719987b, type: 3}
+  shoot: {fileID: 0}
 --- !u!1001 &1965579601723711863
 PrefabInstance:
   m_ObjectHideFlags: 0
