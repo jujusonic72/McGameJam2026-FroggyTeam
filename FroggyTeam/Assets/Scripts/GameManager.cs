@@ -346,32 +346,32 @@ public class GameManager : MonoBehaviour
         switch (diceRoll)
         {
             case 1:
-                PrizeWonText.text = "You won Red Bullet Skin";
+                PrizeWonText.text = "You won the Classic Bullet Skin";
                 skins[0].isUnlocked = true;
                 break;
 
             case 2:
-                PrizeWonText.text = "You won Cyan Bullet Skin";
+                PrizeWonText.text = "You won the Bazooka Bullet Skin";
                 skins[1].isUnlocked = true;
                 break;
 
             case 3:
-                PrizeWonText.text = "You won Green Bullet Skin";
+                PrizeWonText.text = "You won the Horse Bullet Skin";
                 skins[2].isUnlocked = true;
                 break;
 
             case 4:
-                PrizeWonText.text = "You won Blue Bullet Skin";
+                PrizeWonText.text = "You won the Nerf Bullet Skin";
                 skins[3].isUnlocked = true;
                 break;
 
             case 5:
-                PrizeWonText.text = "You won Magenta Bullet Skin";
+                PrizeWonText.text = "You won the Roblox Bullet Skin";
                 skins[4].isUnlocked = true;
                 break;
 
             case 6:
-                PrizeWonText.text = "You won Yellow Bullet Skin";
+                PrizeWonText.text = "You won Shotgun Bullet Skin";
                 skins[5].isUnlocked = true;
                 break;
 
