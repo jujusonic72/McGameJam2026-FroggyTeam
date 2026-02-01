@@ -21,7 +21,7 @@ public class BlackFadeBehaviour : MonoBehaviour
         
     }
 
-    public IEnumerator LevelEndFade(string sceneToLoad)
+    public IEnumerator LevelEndFade(int nextBuildIndex)
     {
         print("Fading");
         while(bg.color.a < 1)
@@ -31,7 +31,7 @@ public class BlackFadeBehaviour : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         Debug.Log("Done Fading");
-        SceneManager.LoadScene(sceneToLoad);
+        SceneManager.LoadScene(nextBuildIndex);
     }
 
     public IEnumerator LevelStartFade()

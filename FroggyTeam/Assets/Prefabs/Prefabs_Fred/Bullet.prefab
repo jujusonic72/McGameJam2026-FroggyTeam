@@ -210,10 +210,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21a862d9da30764d890483d7ca3f674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnRate: 8
-  maxTurn: 5
+  BulletTargetCollision:
+    m_PersistentCalls:
+      m_Calls: []
+  PressedSpace:
+    m_PersistentCalls:
+      m_Calls: []
+  PressedR:
+    m_PersistentCalls:
+      m_Calls: []
+  turnRate: 5
+  maxTurn: 60
   forwardSpeed: 8
   bulletCamera: {fileID: 0}
+  jump:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 66e92cc9-1a91-4239-bc43-bd2f47a8d460
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  retry:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: cad896dc-06c2-4bd9-add6-ce2ae55b732f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!54 &4725278266553134873
 Rigidbody:
   m_ObjectHideFlags: 0
