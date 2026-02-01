@@ -181,6 +181,7 @@ public class bulletcontroller : MonoBehaviour
         transform.forward = direction;
 
         collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 100f, ForceMode.Impulse);
     }
     private void OnDisable()
     {
