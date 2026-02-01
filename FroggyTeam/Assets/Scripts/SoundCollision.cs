@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SoundCollision : MonoBehaviour
 {
-    AudioClip soundClip;
+    public AudioClip soundClip;
     GameManager gameManager;
     SoundPlayer soundPlayer;
     bool isBullet;
@@ -24,6 +24,7 @@ public class SoundCollision : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Sonnnnnn");
         soundPlayer.PlaySound(soundClip, false, true, 0.5f);
     }
 }
