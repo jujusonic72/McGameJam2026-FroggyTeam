@@ -71,11 +71,14 @@ public class GameManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    [SerializeField]
+    private AudioClip bgMusic;
     private bool isSkinSelectOpen = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GetComponentInChildren<SoundPlayer>().PlaySound(bgMusic, true);
 
 
 
