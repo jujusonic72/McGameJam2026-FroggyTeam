@@ -14,29 +14,38 @@ public class SoundPlayer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audioSources = new List<AudioSource>();
-        Invoke("CheckAllAudioSources", checkFrequency);
+        
+    }
+    public void init()
+    {
+        if(audioSources == null)
+        {
+            audioSources = new List<AudioSource>();
+            Invoke("CheckAllAudioSources", checkFrequency);   
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    void CheckAllAudioSources()
-    {
         if (audioSources.Count != 0) 
         {
-            foreach (var source in audioSources)
+            int i = 0;
+            while (i < audioSources.Count)
             {
-                if (!source.isPlaying)
+                if (!audioSources[i].isPlaying)
                 {
+                    var source = audioSources[i];
                     audioSources.Remove(source);
                     Destroy(source);
                 }
+                else ++i;
             }
         }
-        Invoke("CheckAllAudioSources", checkFrequency);
+    }
+    void CheckAllAudioSources()
+    {
+        
     }
     public void PlaySound(AudioClip clip, bool looping, bool soundFatigue=false, float volume=1f)
     {
@@ -52,6 +61,20 @@ public class SoundPlayer : MonoBehaviour
         source.clip = clip;
         source.volume = volume;
         source.Play();
-        audioSources.Add(source);
+        if (audioSources == null) audioSources = new List<AudioSource>();
+        if (source != null && audioSources != null) audioSources.Add(source);
+    }
+    public void ClearAllSounds()
+    {
+        while(audioSources.Count > 0)
+        {
+            var source = audioSources[0];
+                    audioSources.Remove(source);
+                    Destroy(source);
+        }
+    }
+    void OnApplicationQuit()
+    {
+        audioSources.Clear();
     }
 }
