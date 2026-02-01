@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
 
     public void changeScene()
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
