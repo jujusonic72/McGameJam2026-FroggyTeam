@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 1805540917464148461}
   - component: {fileID: 1165302183519364102}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: PrizeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 5904025906767846748}
   - component: {fileID: 5004952250897289752}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RollingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
