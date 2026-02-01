@@ -81,7 +81,8 @@ public class bulletcontroller : MonoBehaviour
             StartCoroutine(WaitForCam());
             bulletCamera.StartCamMovement();
             PressedSpace.Invoke();
-            AudioClip clip = GameObject.Find("GameManager").GetComponent<GameManager>().shoot;
+            int index = GameObject.Find("GameManager").GetComponent<GameManager>().currentSkinIndex;
+            AudioClip clip = GameObject.Find("GameManager").GetComponent<GameManager>().skins[index].skinSoundEffect;
             GameObject.Find("GameManager").transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(clip, false, false, 1f);
             hasStarted = true;
         }

@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GetComponentInChildren<SoundPlayer>().PlaySound(bgMusic, true);
 
 
 
@@ -163,6 +162,9 @@ public class GameManager : MonoBehaviour
         }
         hasWon = false;
         hasLost = false;
+        GetComponentInChildren<SoundPlayer>().init();
+        GetComponentInChildren<SoundPlayer>().ClearAllSounds();
+        GetComponentInChildren<SoundPlayer>().PlaySound(bgMusic, true);
         if (DiceRollText != null) DiceRollText.text = "Rolling Dice...";
         else Debug.Log("DiceRollText is null");
 

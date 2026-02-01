@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f496ce1fa5bb7744cbb8f8fb1c0cfc2e, type: 3}
   m_Name: Skin 5
   m_EditorClassIdentifier: 
-  skinName: Shotgun Bullet
+  skinName: Shotgun
   skinIcon: {fileID: 0}
   skinIndex: 5
   skinScale: 0.5
   skinMesh: {fileID: 919132149155446097, guid: 6e3c6ff5f37a07c469a65c373324769b, type: 3}
   skinMaterial: {fileID: -7791486788655378091, guid: 6e3c6ff5f37a07c469a65c373324769b, type: 3}
   isUnlocked: 0
-  skinSoundEffect: {fileID: 0}
+  skinSoundEffect: {fileID: 8300000, guid: 218ce1ea912ecab4d9d2d4dacf77854b, type: 3}
