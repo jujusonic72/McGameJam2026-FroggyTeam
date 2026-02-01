@@ -11,7 +11,8 @@ public class BlackFadeBehaviour : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        StartCoroutine(LevelStartFade());
+        Debug.Log("Starting to unfade");
+        
     }
 
     // Update is called once per frame
@@ -29,17 +30,19 @@ public class BlackFadeBehaviour : MonoBehaviour
             bg.color = new Color(0, 0, 0, oldAlpha + Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
-
+        Debug.Log("Done Fading");
         SceneManager.LoadScene(sceneToLoad);
     }
 
     public IEnumerator LevelStartFade()
     {
+        Debug.Log("unFading");
         while (bg.color.a > 0)
         {
             float oldAlpha = bg.color.a;
             bg.color = new Color(0, 0, 0, oldAlpha - Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
+        Debug.Log("Done unFading");
     }
 }
