@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f496ce1fa5bb7744cbb8f8fb1c0cfc2e, type: 3}
   m_Name: Skin 5
   m_EditorClassIdentifier: 
-  skinName: Shotgun
-  skinIcon: {fileID: 0}
+  skinName: Zapper
+  skinIcon: {fileID: 21300000, guid: 640be18a4e99df44f91fd63f98044f38, type: 3}
   skinIndex: 5
   skinScale: 0.5
-  skinMesh: {fileID: 919132149155446097, guid: 6e3c6ff5f37a07c469a65c373324769b, type: 3}
-  skinMaterial: {fileID: -7791486788655378091, guid: 6e3c6ff5f37a07c469a65c373324769b, type: 3}
+  skinMesh: {fileID: 919132149155446097, guid: 12aef0ae4d9976e4b9f469b7c51a8e06, type: 3}
+  skinMaterial: {fileID: 2100000, guid: 226f4851ecdd77a4f84713e34f941e64, type: 2}
   isUnlocked: 0
   skinSoundEffect: {fileID: 8300000, guid: 218ce1ea912ecab4d9d2d4dacf77854b, type: 3}

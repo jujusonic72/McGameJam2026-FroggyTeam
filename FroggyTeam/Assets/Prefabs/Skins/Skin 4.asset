@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Skin 4
   m_EditorClassIdentifier: 
   skinName: Roblox
-  skinIcon: {fileID: 0}
+  skinIcon: {fileID: 21300000, guid: d3d1e940857a6ad42b02fa37178f1b1d, type: 3}
   skinIndex: 4
   skinScale: 0.5
   skinMesh: {fileID: 919132149155446097, guid: 0bf9e2a8ecc3cf84e8f7c21a2d433804, type: 3}
-  skinMaterial: {fileID: -7791486788655378091, guid: 0bf9e2a8ecc3cf84e8f7c21a2d433804, type: 3}
+  skinMaterial: {fileID: 2100000, guid: a02a5c1d1e378a148bf77da038840e03, type: 2}
   isUnlocked: 0
   skinSoundEffect: {fileID: 8300000, guid: 524b67bee9cb25141bfe3a5e64476757, type: 3}

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Skin
   m_EditorClassIdentifier: 
   skinName: Basic
-  skinIcon: {fileID: 0}
+  skinIcon: {fileID: 21300000, guid: c04a44b2a2bbc0348acf0a8190a3d3eb, type: 3}
   skinIndex: 0
   skinScale: 0.5
   skinMesh: {fileID: 919132149155446097, guid: 48adf070321a76a45b4ff7cd9023fbce, type: 3}
-  skinMaterial: {fileID: -7791486788655378091, guid: 48adf070321a76a45b4ff7cd9023fbce, type: 3}
+  skinMaterial: {fileID: 2100000, guid: 3628221d1d788ea46bb373da9d285efc, type: 2}
   isUnlocked: 1
   skinSoundEffect: {fileID: 8300000, guid: 24e0bc803b4bbb740bc23a5903f35b15, type: 3}
