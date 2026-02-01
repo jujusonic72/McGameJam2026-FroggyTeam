@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class SoundCollision : MonoBehaviour
 {
-    AudioClip soundClip;
+    public AudioClip soundClip;
     GameManager gameManager;
     SoundPlayer soundPlayer;
-    bool isBullet;
+    public bool isBullet = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,6 +14,7 @@ public class SoundCollision : MonoBehaviour
         if (soundClip == null)
         {
             soundClip = gameManager.skins[gameManager.currentSkinIndex].skinSoundEffect;
+            isBullet = true;
         }
     }
 
@@ -24,6 +25,16 @@ public class SoundCollision : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        soundPlayer.PlaySound(soundClip, false, true, 0.5f);
+        // Debug.Log("Tag: " + collision.gameObject.tag);
+        if(!isBullet && collision.gameObject.tag == "Player")
+        {
+            // Debug.Log("Sonnnnnn");
+            soundPlayer.PlaySound(soundClip, false, true, 0.5f);
+        }
+        else if (isBullet)
+        {
+            soundPlayer.PlaySound(soundClip, false, true, 0.5f);
+        }
+        
     }
 }

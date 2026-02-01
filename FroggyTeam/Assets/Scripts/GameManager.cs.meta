@@ -1,2 +1,27 @@
 fileFormatVersion: 2
 guid: ec57d5158097ba6469a20e5a9bce5fe2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fade: {instanceID: 0}
+  - loseScreen: {instanceID: 0}
+  - winScreen: {instanceID: 0}
+  - skinSelection: {instanceID: 0}
+  - pauseScreen: {instanceID: 0}
+  - DiceRollText: {instanceID: 0}
+  - PrizeWonText: {instanceID: 0}
+  - lockedSkinIcon: {instanceID: 0}
+  - bulletcontroller: {instanceID: 0}
+  - bulletRender: {instanceID: 0}
+  - CurrentBullet: {instanceID: 0}
+  - bgMusic: {instanceID: 0}
+  - failSound: {fileID: 8300000, guid: d1a85ec8b98e654409207bb14fc6dac2, type: 3}
+  - winSound: {fileID: 8300000, guid: b57e76273f9278d458c6a7edbd2b1354, type: 3}
+  - reload: {instanceID: 0}
+  - shoot: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

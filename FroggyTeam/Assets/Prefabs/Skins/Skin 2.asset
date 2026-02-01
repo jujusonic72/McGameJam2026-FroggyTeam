@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f496ce1fa5bb7744cbb8f8fb1c0cfc2e, type: 3}
   m_Name: Skin 2
   m_EditorClassIdentifier: 
-  skinName: Horse Bullet
+  skinName: Horse
   skinIcon: {fileID: 0}
   skinIndex: 2
   skinScale: 0.5
   skinMesh: {fileID: 919132149155446097, guid: d1728e7d2d14ad3478f70ed124663b2c, type: 3}
   skinMaterial: {fileID: -7791486788655378091, guid: d1728e7d2d14ad3478f70ed124663b2c, type: 3}
   isUnlocked: 0
-  skinSoundEffect: {fileID: 0}
+  skinSoundEffect: {fileID: 8300000, guid: 5f692a97dc52a81489df02cea2ca446d, type: 3}

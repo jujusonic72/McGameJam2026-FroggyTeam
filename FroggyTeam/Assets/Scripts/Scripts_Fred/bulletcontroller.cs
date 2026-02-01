@@ -61,7 +61,7 @@ public class bulletcontroller : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         rotation_input = context.ReadValue<Vector2>().x;
-        Debug.Log("Rotation Input: " + rotation_input);
+        // Debug.Log("Rotation Input: " + rotation_input);
         /*if(context.ReadValue<Vector2>().y > 0.0f)
         {
             forward_input = context.ReadValue<Vector2>().y;
@@ -70,7 +70,7 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnMoveCancelled(InputAction.CallbackContext context)
     {
-        Debug.Log("Rotation Input: " + rotation_input);
+        // Debug.Log("Rotation Input: " + rotation_input);
         rotation_input = 0;
     }
 
@@ -81,7 +81,8 @@ public class bulletcontroller : MonoBehaviour
             StartCoroutine(WaitForCam());
             bulletCamera.StartCamMovement();
             PressedSpace.Invoke();
-            AudioClip clip = GameObject.Find("GameManager").GetComponent<GameManager>().shoot;
+            int index = GameObject.Find("GameManager").GetComponent<GameManager>().currentSkinIndex;
+            AudioClip clip = GameObject.Find("GameManager").GetComponent<GameManager>().skins[index].skinSoundEffect;
             GameObject.Find("GameManager").transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(clip, false, false, 1f);
             hasStarted = true;
         }
