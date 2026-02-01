@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f496ce1fa5bb7744cbb8f8fb1c0cfc2e, type: 3}
   m_Name: Skin 1
   m_EditorClassIdentifier: 
-  skinName: cyan Bullet
+  skinName: Bazooka Bullet
   skinIcon: {fileID: 0}
   skinIndex: 1
   skinScale: 0.5
   skinMesh: {fileID: 919132149155446097, guid: 08f1aeb1fe7ac1341b02a5fb00e7b23f, type: 3}
   skinMaterial: {fileID: -7791486788655378091, guid: 08f1aeb1fe7ac1341b02a5fb00e7b23f, type: 3}
   isUnlocked: 0
+  skinSoundEffect: {fileID: 0}
