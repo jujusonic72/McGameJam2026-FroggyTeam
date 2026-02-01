@@ -145,11 +145,6 @@ public class GameManager : MonoBehaviour
             OnPressRetry();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.startButton.IsPressed())
-        {
-            OnPauseResume();
-        }
-
     }
 
     private void OnRetry(InputAction.CallbackContext context)
@@ -219,19 +214,21 @@ public class GameManager : MonoBehaviour
         loseScreen.SetActive(false);
         winScreen.SetActive(false);
         _hasFinishedReset = false;
-        StartCoroutine(fade.LevelEndFade(SceneManager.GetActiveScene().name));
+        StartCoroutine(fade.LevelEndFade(SceneManager.GetActiveScene().buildIndex));
     }
 
     public void OnPressNext()
     {
         bulletcontroller.jump.performed -= MenuControls;
         bulletcontroller.retry.performed -= OnRetry;
-        
-        StartCoroutine(fade.LevelEndFade(nextLevel));
+
+        print(SceneManager.GetActiveScene().buildIndex);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        print(SceneManager.GetSceneByBuildIndex(nextSceneIndex).name);
+        StartCoroutine(fade.LevelEndFade(nextSceneIndex));
         loseScreen.SetActive(false);
         winScreen.SetActive(false);
         _hasFinishedReset = false;
-        SceneManager.LoadScene(nextLevel);
     }
 
     public Color GetBulletColor()
