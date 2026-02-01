@@ -57,10 +57,13 @@ public class GameManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    [SerializeField]
+    private AudioClip bgMusic;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        GetComponentInChildren<SoundPlayer>().PlaySound(bgMusic, true);
 
         
         //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0) || SceneManager.GetActiveScene().name.Contains("Gym"))

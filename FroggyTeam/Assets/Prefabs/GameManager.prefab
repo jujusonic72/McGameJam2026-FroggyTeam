@@ -56,6 +56,7 @@ MonoBehaviour:
   PrizeWonText: {fileID: 7851234719995606137}
   bulletcontroller: {fileID: 0}
   bulletColor: {r: 0, g: 0, b: 0, a: 0}
+  bgMusic: {fileID: 8300000, guid: f66dded401a605642b706e2ff53d9d99, type: 3}
 --- !u!1001 &1965579601723711863
 PrefabInstance:
   m_ObjectHideFlags: 0
