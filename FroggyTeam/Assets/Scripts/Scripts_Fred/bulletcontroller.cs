@@ -45,7 +45,6 @@ public class bulletcontroller : MonoBehaviour
     {
         hasStarted = false;
         bulletRenderer = bullet.GetComponent<Renderer>();
-        bulletRenderer.material.color = GameManager.instance.bulletColor;
     }
 
     private void OnEnable()

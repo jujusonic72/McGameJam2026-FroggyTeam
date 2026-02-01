@@ -56,6 +56,9 @@ public class GameManager : MonoBehaviour
 
     public bulletcontroller bulletcontroller;
 
+    [SerializeField]
+    private int currentSkinIndex = 0;
+
 
     private bool hasWon;
     private bool hasLost;
@@ -67,7 +70,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    public Color bulletColor;
+    public GameObject bulletRender;
+
+    public GameObject CurrentBullet;
 
     private bool isPaused = false;
 
@@ -140,6 +145,8 @@ public class GameManager : MonoBehaviour
                 isSkinSelectOpen = true;
             }
         };
+        RefreshBulletSkins();
+        SelectSkin(currentSkinIndex);
         targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
         foreach (var target in targets)
         {
@@ -191,7 +198,8 @@ public class GameManager : MonoBehaviour
 
     private void CheckTargets()
     {
-        if (targets.Count <= 0 && !hasWon)
+        Debug.Log("Checking Targets" + targets.Count);
+        if (targets.Count <= 0 && !hasWon && _hasFinishedReset)
         {
             OnWin();
             hasWon = true;
@@ -217,9 +225,19 @@ public class GameManager : MonoBehaviour
 
     public void SelectSkin(int skinIndex)
     {
+        currentSkinIndex = skinIndex;
         if (skins[skinIndex].isUnlocked)
         {
             //bulletColor = skins[skinIndex].skinMaterial.color;
+            bulletRender = GameObject.Find("Bullet").transform.Find("BulletRender").gameObject;
+            if (CurrentBullet != null)
+            {
+                Destroy(CurrentBullet);
+            }
+            CurrentBullet = Instantiate(skins[skinIndex].skinMesh, bulletRender.transform.position, bulletRender.transform.rotation, bulletRender.transform.parent);
+            CurrentBullet.transform.localScale = skins[skinIndex].skinScale * Vector3.one;
+
+            //bulletRender.GetComponent<Renderer>().material = skins[0].skinMaterial;
             skinSelection.SetActive(false);
             if (hasWon)
             {
@@ -286,10 +304,22 @@ public class GameManager : MonoBehaviour
         _hasFinishedReset = false;
         StartCoroutine(fade.LevelEndFade(nextSceneIndex));
     }
-
-    public Color GetBulletColor()
+    public void RefreshBulletSkins()
     {
-        return bulletColor;
+        foreach (GameObject panel in skinPanels)
+        {
+            int index = skinPanels.IndexOf(panel);
+            if (skins[index].isUnlocked)
+            {
+                panel.transform.GetComponentInChildren<UnityEngine.UI.Image>().sprite = skins[index].skinIcon;
+                panel.GetComponentInChildren<TextMeshProUGUI>().text = skins[index].skinName;
+            }
+            else
+            {
+                panel.transform.GetComponentInChildren<UnityEngine.UI.Image>().sprite = lockedSkinIcon;
+                panel.GetComponentInChildren<TextMeshProUGUI>().text = "Locked";
+            }
+        }
     }
 
     IEnumerator RollDice()
@@ -339,19 +369,6 @@ public class GameManager : MonoBehaviour
                 break;
 
         }
-        foreach (GameObject panel in skinPanels)
-        {
-            int index = skinPanels.IndexOf(panel);
-            if (skins[index].isUnlocked)
-            {
-                panel.transform.GetComponentInChildren<UnityEngine.UI.Image>().sprite = skins[index].skinIcon;
-                panel.GetComponentInChildren<TextMeshProUGUI>().text = skins[index].skinName;
-            }
-            else
-            {
-                panel.transform.GetComponentInChildren<UnityEngine.UI.Image>().sprite = lockedSkinIcon;
-                panel.GetComponentInChildren<TextMeshProUGUI>().text = "Locked";
-            }
-        }
+        RefreshBulletSkins();
     }
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Skin 3
   m_EditorClassIdentifier: 
   skinName: Blue Bullet
-  skinMaterial: {fileID: 0}
   skinIcon: {fileID: 0}
   skinIndex: 3
-  skinPrefab: {fileID: 0}
-  skinPanel: {fileID: 0}
+  skinScale: 0.5
+  skinMesh: {fileID: 919132149155446097, guid: c6485330c9896dd4caada155f116a54e, type: 3}
+  skinMaterial: {fileID: -7791486788655378091, guid: c6485330c9896dd4caada155f116a54e, type: 3}
+  isUnlocked: 1

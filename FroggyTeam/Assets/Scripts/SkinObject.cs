@@ -6,6 +6,9 @@ public class SkinObject : ScriptableObject
     public string skinName;
     public Sprite skinIcon;
     public int skinIndex;
-    public GameObject skinPrefab;
+    public float skinScale = 0.5f;
+    public GameObject skinMesh;
+    public Material skinMaterial;
     public bool isUnlocked = false;
+    public AudioClip skinSoundEffect;
 }
