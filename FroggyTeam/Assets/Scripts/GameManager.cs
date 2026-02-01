@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
     private GameObject winScreen;
 
     [SerializeField]
+    private GameObject pauseScreen;
+
+    [SerializeField]
     private TMP_Text DiceRollText;
 
     [SerializeField]
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     public Color bulletColor;
 
+    private bool isPaused = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -139,6 +143,12 @@ public class GameManager : MonoBehaviour
         {
             OnPressRetry();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.startButton.IsPressed())
+        {
+            OnPauseResume();
+        }
+
     }
 
     private void OnRetry(InputAction.CallbackContext context)
@@ -176,6 +186,23 @@ public class GameManager : MonoBehaviour
     {
         loseScreen.SetActive(true);
         hasLost = true;
+    }
+
+    void OnPauseResume()
+    {
+        if (isPaused)
+        {
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+            isPaused = false;
+        }
+        else
+        {
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+            isPaused = true;
+        }
+
     }
 
     public void OnPressRetry()
