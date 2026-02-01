@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour
     private GameObject winScreen;
 
     [SerializeField]
+    private GameObject pauseScreen;
+
+    [SerializeField]
     private TMP_Text DiceRollText;
 
     [SerializeField]
@@ -48,6 +52,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public Color bulletColor;
+
+    private bool isPaused = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -144,15 +150,21 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.R)) OnPressRetry();
 
-        if (hasWon && (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()) )
+        if (hasWon && (Input.GetKeyDown(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()) )
         {
             OnPressNext();
         }
 
-        if(hasLost && (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()))
+        if(hasLost && (Input.GetKeyDown(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()))
         {
             OnPressRetry();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.startButton.IsPressed())
+        {
+            OnPauseResume();
+        }
+
     }
 
     void OnWin()
@@ -169,6 +181,23 @@ public class GameManager : MonoBehaviour
     {
         loseScreen.SetActive(true);
         hasLost = true;
+    }
+
+    void OnPauseResume()
+    {
+        if (isPaused)
+        {
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+            isPaused = false;
+        }
+        else
+        {
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+            isPaused = true;
+        }
+
     }
 
     public void OnPressRetry()
