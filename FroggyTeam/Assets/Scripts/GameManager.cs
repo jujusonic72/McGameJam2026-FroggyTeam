@@ -5,10 +5,12 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.UIElements;
 //using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
@@ -126,6 +128,15 @@ public class GameManager : MonoBehaviour
         bulletcontroller.jump.performed += MenuControls;
         bulletcontroller.retry.performed += OnRetry;
         bulletcontroller.inputs.Player.Pause.performed += OnPressPause;
+        bulletcontroller.inputs.Player.SkinSelection.performed += context =>
+        {
+            if (!isSkinSelectOpen && (hasWon || hasLost || isPaused))
+            {
+                skinSelection.SetActive(true);
+                skinSelection.GetComponentInChildren<UnityEngine.UI.Button>().Select();
+                isSkinSelectOpen = true;
+            }
+        };
         targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
         foreach (var target in targets)
         {
@@ -157,6 +168,10 @@ public class GameManager : MonoBehaviour
         else if (hasLost && !isSkinSelectOpen)
         {
             OnPressRetry();
+        }
+        else if (isSkinSelectOpen)
+        {
+            EventSystem.current.currentSelectedGameObject.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
         }
 
     }
@@ -203,22 +218,22 @@ public class GameManager : MonoBehaviour
         {
             //bulletColor = skins[skinIndex].skinMaterial.color;
             skinSelection.SetActive(false);
+            if (hasWon)
+            {
+                winScreen.SetActive(true);
+                winScreen.GetComponentInChildren<UnityEngine.UI.Button>().Select();
+            }
+            else if (hasLost)
+            {
+                loseScreen.SetActive(true);
+                loseScreen.GetComponentInChildren<UnityEngine.UI.Button>().Select();
+            }
+            else if (isPaused)
+            {
+                pauseScreen.SetActive(true);
+                pauseScreen.GetComponentInChildren<UnityEngine.UI.Button>().Select();
+            }
             isSkinSelectOpen = false;
-        }
-        if(hasWon)
-        {
-            winScreen.SetActive(true);
-            winScreen.GetComponentInChildren<Button>().Select();
-        }
-        else if(hasLost)
-        {
-            loseScreen.SetActive(true);
-            loseScreen.GetComponentInChildren<Button>().Select();
-        }
-        else if(isPaused)
-        {
-            pauseScreen.SetActive(true);
-            pauseScreen.GetComponentInChildren<Button>().Select();
         }
     }
 
@@ -326,12 +341,12 @@ public class GameManager : MonoBehaviour
             int index = skinPanels.IndexOf(panel);
             if (skins[index].isUnlocked)
             {
-                panel.transform.GetComponentInChildren<Image>().sprite = skins[index].skinIcon;
+                panel.transform.GetComponentInChildren<UnityEngine.UI.Image>().sprite = skins[index].skinIcon;
                 panel.GetComponentInChildren<TextMeshProUGUI>().text = skins[index].skinName;
             }
             else
             {
-                panel.transform.GetComponentInChildren<Image>().sprite = lockedSkinIcon;
+                panel.transform.GetComponentInChildren<UnityEngine.UI.Image>().sprite = lockedSkinIcon;
                 panel.GetComponentInChildren<TextMeshProUGUI>().text = "Locked";
             }
         }

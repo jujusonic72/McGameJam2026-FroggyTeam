@@ -51,7 +51,7 @@ MonoBehaviour:
   nextLevel: LevelSpirale
   loseScreen: {fileID: 1531330276954730343}
   winScreen: {fileID: 8731957666460608254}
-  skinSelection: {fileID: 0}
+  skinSelection: {fileID: 3426480065957924042}
   pauseScreen: {fileID: 7672386968426261034}
   DiceRollText: {fileID: 4155667720511406695}
   PrizeWonText: {fileID: 7851234719995606137}
@@ -197,12 +197,56 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7025404982812972619, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025404982812972619, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025404982812972619, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3582396844277041345}
+    - target: {fileID: 7025404982812972619, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5084183638239286386}
+    - target: {fileID: 7025404982812972619, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025404982812972619, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7091200187873150857, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196698360215288104, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196698360215288104, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_Delegates.Array.data[0].eventID
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196698360215288104, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196698360215288104, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196698360215288104, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5084183638239286386}
+    - target: {fileID: 7196698360215288104, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8546664436300302118, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
       propertyPath: m_Name
@@ -226,6 +270,11 @@ GameObject:
 --- !u!1 &3182486861326344044 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3993939478623993371, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+  m_PrefabInstance: {fileID: 1965579601723711863}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3426480065957924042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3803968614350974397, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
   m_PrefabInstance: {fileID: 1965579601723711863}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4155667720511406695 stripped
