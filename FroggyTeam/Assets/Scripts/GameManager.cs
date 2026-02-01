@@ -239,17 +239,17 @@ public class GameManager : MonoBehaviour
 
             //bulletRender.GetComponent<Renderer>().material = skins[0].skinMaterial;
             skinSelection.SetActive(false);
-            if (hasWon)
+            if (hasWon && _hasFinishedReset)
             {
                 winScreen.SetActive(true);
                 winScreen.GetComponentInChildren<UnityEngine.UI.Button>().Select();
             }
-            else if (hasLost)
+            else if (hasLost && _hasFinishedReset)
             {
                 loseScreen.SetActive(true);
                 loseScreen.GetComponentInChildren<UnityEngine.UI.Button>().Select();
             }
-            else if (isPaused)
+            else if (isPaused && _hasFinishedReset)
             {
                 pauseScreen.SetActive(true);
                 pauseScreen.GetComponentInChildren<UnityEngine.UI.Button>().Select();
