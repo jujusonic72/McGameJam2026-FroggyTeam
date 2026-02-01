@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
     private GameObject winScreen;
 
     [SerializeField]
+    private GameObject skinSelection;
+
+    [SerializeField]
     private GameObject pauseScreen;
 
     [SerializeField]
@@ -39,6 +42,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private TMP_Text PrizeWonText;
+
+    [SerializeField]
+    private List<GameObject> skinPanels;
+
+    [SerializeField]
+    private List<SkinObject> skins;
+
+    [SerializeField]
+    private Sprite lockedSkinIcon;
 
     public bulletcontroller bulletcontroller;
 
@@ -56,6 +68,8 @@ public class GameManager : MonoBehaviour
     public Color bulletColor;
 
     private bool isPaused = false;
+
+    private bool isSkinSelectOpen = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -136,7 +150,7 @@ public class GameManager : MonoBehaviour
     }
     private void MenuControls(InputAction.CallbackContext context)
     {
-        if (hasWon)
+        if (hasWon && rolled)
         {
             OnPressNext();
         }
@@ -183,6 +197,31 @@ public class GameManager : MonoBehaviour
         bulletcontroller.StopBullet();
     }
 
+    public void SelectSkin(int skinIndex)
+    {
+        if (skins[skinIndex].isUnlocked)
+        {
+            //bulletColor = skins[skinIndex].skinMaterial.color;
+            skinSelection.SetActive(false);
+            isSkinSelectOpen = false;
+        }
+        if(hasWon)
+        {
+            winScreen.SetActive(true);
+            winScreen.GetComponentInChildren<Button>().Select();
+        }
+        else if(hasLost)
+        {
+            loseScreen.SetActive(true);
+            loseScreen.GetComponentInChildren<Button>().Select();
+        }
+        else if(isPaused)
+        {
+            pauseScreen.SetActive(true);
+            pauseScreen.GetComponentInChildren<Button>().Select();
+        }
+    }
+
     public void OnLose()
     {
         loseScreen.SetActive(true);
@@ -221,19 +260,13 @@ public class GameManager : MonoBehaviour
     {
         bulletcontroller.jump.performed -= MenuControls;
         bulletcontroller.retry.performed -= OnRetry;
-
-
-            print(SceneManager.GetActiveScene().buildIndex);
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            print(SceneManager.GetSceneByBuildIndex(nextSceneIndex).name);
-
-
-
-            StartCoroutine(fade.LevelEndFade(nextSceneIndex));
-            loseScreen.SetActive(false);
-            winScreen.SetActive(false);
-            _hasFinishedReset = false;
-
+        print(SceneManager.GetActiveScene().buildIndex);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        print(SceneManager.GetSceneByBuildIndex(nextSceneIndex).name);
+        loseScreen.SetActive(false);
+        winScreen.SetActive(false);
+        _hasFinishedReset = false;
+        StartCoroutine(fade.LevelEndFade(nextSceneIndex));
     }
 
     public Color GetBulletColor()
@@ -255,38 +288,52 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 PrizeWonText.text = "You won Red Bullet Skin";
-                bulletColor = Color.red;
+                skins[0].isUnlocked = true;
                 break;
 
             case 2:
                 PrizeWonText.text = "You won Cyan Bullet Skin";
-                bulletColor = Color.cyan;
+                skins[1].isUnlocked = true;
                 break;
 
             case 3:
                 PrizeWonText.text = "You won Green Bullet Skin";
-                bulletColor = Color.green;
+                skins[2].isUnlocked = true;
                 break;
 
             case 4:
                 PrizeWonText.text = "You won Blue Bullet Skin";
-                bulletColor = Color.blue;
+                skins[3].isUnlocked = true;
                 break;
 
             case 5:
                 PrizeWonText.text = "You won Magenta Bullet Skin";
-                bulletColor = Color.magenta;
+                skins[4].isUnlocked = true;
                 break;
 
             case 6:
                 PrizeWonText.text = "You won Yellow Bullet Skin";
-                bulletColor = Color.yellow;
+                skins[5].isUnlocked = true;
                 break;
 
             default:
                 PrizeWonText.text = "Roll Error";
                 break;
 
+        }
+        foreach (GameObject panel in skinPanels)
+        {
+            int index = skinPanels.IndexOf(panel);
+            if (skins[index].isUnlocked)
+            {
+                panel.transform.GetComponentInChildren<Image>().sprite = skins[index].skinIcon;
+                panel.GetComponentInChildren<TextMeshProUGUI>().text = skins[index].skinName;
+            }
+            else
+            {
+                panel.transform.GetComponentInChildren<Image>().sprite = lockedSkinIcon;
+                panel.GetComponentInChildren<TextMeshProUGUI>().text = "Locked";
+            }
         }
     }
 }
