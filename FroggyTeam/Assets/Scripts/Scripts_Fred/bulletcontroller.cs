@@ -61,7 +61,7 @@ public class bulletcontroller : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         rotation_input = context.ReadValue<Vector2>().x;
-        Debug.Log("Rotation Input: " + rotation_input);
+        // Debug.Log("Rotation Input: " + rotation_input);
         /*if(context.ReadValue<Vector2>().y > 0.0f)
         {
             forward_input = context.ReadValue<Vector2>().y;
@@ -70,7 +70,7 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnMoveCancelled(InputAction.CallbackContext context)
     {
-        Debug.Log("Rotation Input: " + rotation_input);
+        // Debug.Log("Rotation Input: " + rotation_input);
         rotation_input = 0;
     }
 
