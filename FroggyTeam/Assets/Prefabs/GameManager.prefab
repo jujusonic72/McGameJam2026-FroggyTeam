@@ -54,6 +54,7 @@ MonoBehaviour:
   pauseScreen: {fileID: 7672386968426261034}
   DiceRollText: {fileID: 4155667720511406695}
   PrizeWonText: {fileID: 7851234719995606137}
+  continueText: {fileID: 7550202555353245193}
   bulletcontroller: {fileID: 0}
   bulletColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1965579601723711863
@@ -190,6 +191,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6895624031951589833, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
   m_PrefabInstance: {fileID: 1965579601723711863}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7550202555353245193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8322811555539142526, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+  m_PrefabInstance: {fileID: 1965579601723711863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7672386968426261034 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8160222873149819741, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}

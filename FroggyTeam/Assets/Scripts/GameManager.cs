@@ -60,9 +60,9 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
 
-        
+
+
         //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0) || SceneManager.GetActiveScene().name.Contains("Gym"))
         //{
         //    targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
@@ -222,13 +222,18 @@ public class GameManager : MonoBehaviour
         bulletcontroller.jump.performed -= MenuControls;
         bulletcontroller.retry.performed -= OnRetry;
 
-        print(SceneManager.GetActiveScene().buildIndex);
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        print(SceneManager.GetSceneByBuildIndex(nextSceneIndex).name);
-        StartCoroutine(fade.LevelEndFade(nextSceneIndex));
-        loseScreen.SetActive(false);
-        winScreen.SetActive(false);
-        _hasFinishedReset = false;
+
+            print(SceneManager.GetActiveScene().buildIndex);
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            print(SceneManager.GetSceneByBuildIndex(nextSceneIndex).name);
+
+
+
+            StartCoroutine(fade.LevelEndFade(nextSceneIndex));
+            loseScreen.SetActive(false);
+            winScreen.SetActive(false);
+            _hasFinishedReset = false;
+
     }
 
     public Color GetBulletColor()
@@ -249,32 +254,32 @@ public class GameManager : MonoBehaviour
         switch (diceRoll)
         {
             case 1:
-                PrizeWonText.text = "You won Item 1";
+                PrizeWonText.text = "You won Red Bullet Skin";
                 bulletColor = Color.red;
                 break;
 
             case 2:
-                PrizeWonText.text = "You won Item 2";
+                PrizeWonText.text = "You won Cyan Bullet Skin";
                 bulletColor = Color.cyan;
                 break;
 
             case 3:
-                PrizeWonText.text = "You won Item 3";
+                PrizeWonText.text = "You won Green Bullet Skin";
                 bulletColor = Color.green;
                 break;
 
             case 4:
-                PrizeWonText.text = "You won Item 4";
+                PrizeWonText.text = "You won Blue Bullet Skin";
                 bulletColor = Color.blue;
                 break;
 
             case 5:
-                PrizeWonText.text = "You won Item 5";
+                PrizeWonText.text = "You won Magenta Bullet Skin";
                 bulletColor = Color.magenta;
                 break;
 
             case 6:
-                PrizeWonText.text = "You won Item 6";
+                PrizeWonText.text = "You won Yellow Bullet Skin";
                 bulletColor = Color.yellow;
                 break;
 
