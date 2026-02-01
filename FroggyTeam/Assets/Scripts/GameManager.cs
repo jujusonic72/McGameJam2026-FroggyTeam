@@ -153,11 +153,11 @@ public class GameManager : MonoBehaviour
     }
     private void MenuControls(InputAction.CallbackContext context)
     {
-        if (hasWon && rolled)
+        if (hasWon && rolled && !isSkinSelectOpen)
         {
             OnPressNext();
         }
-        else if (hasLost)
+        else if (hasLost && !isSkinSelectOpen)
         {
             OnPressRetry();
         }
