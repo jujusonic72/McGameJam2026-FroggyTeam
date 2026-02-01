@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         bulletcontroller.BulletTargetCollision.AddListener(CheckTargets);
         bulletcontroller.jump.performed += MenuControls;
         bulletcontroller.retry.performed += OnRetry;
+        bulletcontroller.inputs.Player.Pause.performed += OnPressPause;
         targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
         foreach (var target in targets)
         {
@@ -154,6 +155,11 @@ public class GameManager : MonoBehaviour
     private void OnRetry(InputAction.CallbackContext context)
     {
         OnPressRetry();
+    }
+
+    private void OnPressPause(InputAction.CallbackContext context)
+    {
+        OnPauseResume();
     }
 
     private void CheckTargets()

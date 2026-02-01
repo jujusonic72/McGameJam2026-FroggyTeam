@@ -51,6 +51,7 @@ MonoBehaviour:
   nextLevel: LevelSpirale
   loseScreen: {fileID: 1531330276954730343}
   winScreen: {fileID: 8731957666460608254}
+  pauseScreen: {fileID: 7672386968426261034}
   DiceRollText: {fileID: 4155667720511406695}
   PrizeWonText: {fileID: 7851234719995606137}
   bulletcontroller: {fileID: 0}
@@ -187,6 +188,11 @@ MonoBehaviour:
 --- !u!224 &4968888475846832318 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6895624031951589833, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+  m_PrefabInstance: {fileID: 1965579601723711863}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7672386968426261034 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8160222873149819741, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
   m_PrefabInstance: {fileID: 1965579601723711863}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7851234719995606137 stripped
