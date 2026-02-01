@@ -34,6 +34,13 @@ public class bulletcontroller : MonoBehaviour
 
     private Vector2 leftStick;
 
+    private bool hasStarted;
+
+    private void Start()
+    {
+        hasStarted = false;
+    }
+
     private void OnEnable()
     {
         inputs = new InputSystem_Actions();
@@ -63,10 +70,15 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnShoot(InputAction.CallbackContext context)
     {
-        StartCoroutine(WaitForCam());
-        bulletCamera.StartCamMovement();
-        PressedSpace.Invoke();
+        if (!hasStarted)
+        {
+            StartCoroutine(WaitForCam());
+            bulletCamera.StartCamMovement();
+            PressedSpace.Invoke();
+            hasStarted = true;
+        }
     }
+
     private void OnRPressed(InputAction.CallbackContext context)
     {
         PressedR.Invoke();
@@ -78,9 +90,20 @@ public class bulletcontroller : MonoBehaviour
         {
             currentTurn = 0f;
         }
+        else if (rotation_input <= 0) {
+            if(currentTurn > 0f)
+            {
+                currentTurn = 0f;
+            }
+            currentTurn = Mathf.Max(currentTurn - (turnRate), (-maxTurn));
+        }
         else
         {
-            currentTurn = Mathf.Max(currentTurn + (turnRate * rotation_input), (maxTurn * rotation_input));
+            if (currentTurn < 0f)
+            {
+                currentTurn = 0f;
+            }
+            currentTurn = Mathf.Min(currentTurn + (turnRate), (maxTurn));
         }
 
         if (forward_input != 0.0f) transform.Rotate(Vector3.up, currentTurn * Time.deltaTime);

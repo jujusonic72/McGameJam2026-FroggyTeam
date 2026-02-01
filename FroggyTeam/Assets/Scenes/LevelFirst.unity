@@ -458,9 +458,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8994802509888114883, guid: a3b6e52b5dfd14f41827759613b8d0a6, type: 3}
+      propertyPath: jump.m_Name
+      value: Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 8994802509888114883, guid: a3b6e52b5dfd14f41827759613b8d0a6, type: 3}
       propertyPath: bulletCamera
       value: 
       objectReference: {fileID: 235504394}
+    - target: {fileID: 8994802509888114883, guid: a3b6e52b5dfd14f41827759613b8d0a6, type: 3}
+      propertyPath: retry.m_Name
+      value: Retry
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1739,6 +1747,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8160222873149819741, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8546664436300302118, guid: f220f24bf2e292d4fa161593ce21794c, type: 3}
       propertyPath: m_Name
       value: CanvasInLevel
@@ -2088,6 +2100,7 @@ MonoBehaviour:
   nextLevel: GymMP
   loseScreen: {fileID: 0}
   winScreen: {fileID: 0}
+  pauseScreen: {fileID: 0}
   DiceRollText: {fileID: 0}
   PrizeWonText: {fileID: 0}
   bulletcontroller: {fileID: 1180803635}
