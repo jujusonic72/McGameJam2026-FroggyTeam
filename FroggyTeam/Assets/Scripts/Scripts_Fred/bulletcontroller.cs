@@ -1,9 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
+
 
 public class bulletcontroller : MonoBehaviour
 {
+    public UnityEvent BulletTargetCollision;
+    public UnityEvent PressedSpace;
+    public UnityEvent PressedR;
     [SerializeField]
     float turnRate = 0.1f;
 
@@ -20,7 +26,9 @@ public class bulletcontroller : MonoBehaviour
     [SerializeField]
     CameraMovement bulletCamera;
 
-    private InputSystem_Actions _inputs;
+    public InputSystem_Actions inputs;
+    public InputAction jump;
+    public InputAction retry;
     private float rotation_input;
     private float forward_input = 0.0f;
 
@@ -28,40 +36,51 @@ public class bulletcontroller : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputs = new InputSystem_Actions();
-        _inputs.Player.Move.performed += OnMove;
-        _inputs.Player.Jump.performed += OnShoot;
+        inputs = new InputSystem_Actions();
+        inputs.Player.Enable();
+        inputs.Player.Move.performed += OnMove;
+        inputs.Player.Move.canceled += OnMoveCancelled;
+        jump = inputs.Player.Jump;
+        jump.performed += OnShoot;
+        retry = inputs.Player.Retry;
     }
 
     private void OnMove(InputAction.CallbackContext context)
     {
         rotation_input = context.ReadValue<Vector2>().x;
-
+        Debug.Log("Rotation Input: " + rotation_input);
         /*if(context.ReadValue<Vector2>().y > 0.0f)
         {
             forward_input = context.ReadValue<Vector2>().y;
         }*/
     }
 
+    private void OnMoveCancelled(InputAction.CallbackContext context)
+    {
+        Debug.Log("Rotation Input: " + rotation_input);
+        rotation_input = 0;
+    }
+
     private void OnShoot(InputAction.CallbackContext context)
     {
-
+        StartCoroutine(WaitForCam());
+        bulletCamera.StartCamMovement();
+        PressedSpace.Invoke();
+    }
+    private void OnRPressed(InputAction.CallbackContext context)
+    {
+        PressedR.Invoke();
     }
 
     private void FixedUpdate()
     {
-
-        if(turnDirection == 0)
+        if (rotation_input == 0)
         {
             currentTurn = 0f;
         }
-        else if(turnDirection == 1)
-        {
-            currentTurn = Mathf.Min(currentTurn + turnRate, maxTurn);
-        }
         else
         {
-            currentTurn = Mathf.Max(currentTurn - turnRate, -maxTurn);
+            currentTurn = Mathf.Max(currentTurn + (turnRate * rotation_input), (maxTurn * rotation_input));
         }
 
         if (forward_input != 0.0f) transform.Rotate(Vector3.up, currentTurn * Time.deltaTime);
@@ -69,43 +88,7 @@ public class bulletcontroller : MonoBehaviour
 
     private void Update()
     {
-        if (Gamepad.current != null)
-        {
-            leftStick = Gamepad.current.leftStick.ReadValue();
-        }
-        else
-        {
-            Debug.Log("No gamepad connected.");
-        }
-
-
-        if (Input.GetKey(KeyCode.D) || Gamepad.current.leftStick.ReadValue().x > 0.0f)
-        {
-            //rotation_input = turnRate;
-            turnDirection = 1;
-        }
-        else if (Input.GetKey(KeyCode.A) || Gamepad.current.leftStick.ReadValue().x < 0.0f)
-        {
-            //rotation_input = -turnRate;
-            turnDirection = -1;
-        }
-        else
-        {
-            //rotation_input = 0.0f;
-            turnDirection = 0;
-        }
-
-        if (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed())
-        {
-            StartCoroutine(WaitForCam());
-            bulletCamera.StartCamMovement();
-        }
-        
-        Vector3 move = new Vector3(0, 0, forward_input);
-
         GetComponent<Rigidbody>().linearVelocity = (transform.forward * forward_input);
-
-        //transform.Translate(move * 5.0f * Time.deltaTime, Space.Self);
     }
 
     private IEnumerator WaitForCam()
@@ -125,6 +108,7 @@ public class bulletcontroller : MonoBehaviour
         {
             case "Target":
                 OnHitTarget(collision.gameObject);
+                BulletTargetCollision.Invoke();
                 break;
             case "Reflect":
                 OnHitReflect(collision);
@@ -168,5 +152,10 @@ public class bulletcontroller : MonoBehaviour
 
         collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
-
+    private void OnDisable()
+    {
+        inputs.Player.Move.performed -= OnMove;
+        inputs.Player.Move.canceled -= OnMoveCancelled;
+        jump.performed -= OnShoot;
+    }
 }
