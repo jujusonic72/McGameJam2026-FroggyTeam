@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> skinPanels;
 
     [SerializeField]
-    private List<SkinObject> skins;
+    public List<SkinObject> skins;
 
     [SerializeField]
     private Sprite lockedSkinIcon;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     public bulletcontroller bulletcontroller;
 
     [SerializeField]
-    private int currentSkinIndex = 0;
+    public int currentSkinIndex = 0;
 
 
     private bool hasWon;
@@ -78,6 +78,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip bgMusic;
+    [SerializeField]
+    private AudioClip failSound;
+    [SerializeField]
+    private AudioClip winSound;
+    [SerializeField]
+    private AudioClip reload;
+    [SerializeField]
+    public AudioClip shoot;
+
     private bool isSkinSelectOpen = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -161,7 +170,7 @@ public class GameManager : MonoBehaviour
         else Debug.Log("PrizeWonText is null");
 
         rolled = false;
-
+        transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(reload, false);
         _hasFinishedReset = true;
     }
     private void OnLoad(Scene scene, LoadSceneMode loadSceneMode)
@@ -203,6 +212,7 @@ public class GameManager : MonoBehaviour
         {
             OnWin();
             hasWon = true;
+            transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(winSound, false);
         }
     }
     // Update is called once per frame
@@ -260,6 +270,7 @@ public class GameManager : MonoBehaviour
 
     public void OnLose()
     {
+        transform.Find("SoundManager").GetComponent<SoundPlayer>().PlaySound(failSound, false);
         loseScreen.SetActive(true);
         hasLost = true;
     }
@@ -370,5 +381,14 @@ public class GameManager : MonoBehaviour
 
         }
         RefreshBulletSkins();
+    }
+    private void OnApplicationQuit()
+    {
+        instance = null;
+        foreach (var skin in skins)
+        {
+            skin.isUnlocked = false;
+        }
+        skins[0].isUnlocked = true;
     }
 }
