@@ -248,6 +248,11 @@ public class GameManager : MonoBehaviour
             }
             CurrentBullet = Instantiate(skins[skinIndex].skinMesh, bulletRender.transform.position, bulletRender.transform.rotation, bulletRender.transform.parent);
             CurrentBullet.transform.localScale = skins[skinIndex].skinScale * Vector3.one;
+            if(skinIndex == 2)
+            {
+                Quaternion quaternion = CurrentBullet.transform.rotation;
+                CurrentBullet.transform.Rotate(0, 90, 0);
+            }
 
             //bulletRender.GetComponent<Renderer>().material = skins[0].skinMaterial;
             skinSelection.SetActive(false);
