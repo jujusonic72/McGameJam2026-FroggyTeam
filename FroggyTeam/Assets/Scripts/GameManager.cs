@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
+//using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,8 +37,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TMP_Text PrizeWonText;
 
-    [SerializeField]
-    private bulletcontroller bulletcontroller;
+    public bulletcontroller bulletcontroller;
+
 
     private bool hasWon;
     private bool hasLost;
@@ -49,26 +52,11 @@ public class GameManager : MonoBehaviour
 
     public Color bulletColor;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (instance != this && instance != null) 
-        {
-            Debug.Log("Destroying duplicate GameManager");
-            Destroy(this);
-        }
-        if (instance == this)
-        {
-            DontDestroyOnLoad(instance);
-            SceneManager.sceneLoaded += OnLoad;
-        }
-        else if (instance == null)
-        {
-            Debug.Log("Either Setting the first game manager or making sure it is subscribed to SceneLoaded");
-            instance = this;
-            SceneManager.sceneLoaded += OnLoad;
-            DontDestroyOnLoad(instance);
-        }
+        
 
         
         //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0) || SceneManager.GetActiveScene().name.Contains("Gym"))
@@ -87,30 +75,39 @@ public class GameManager : MonoBehaviour
         //}
 
     }
-    private void OnLoad(Scene scene, LoadSceneMode loadSceneMode)
+    private void OnEnable()
     {
-        Debug.Log("GameManager detected scene load: " + scene.name);
-        if (fade == null)
+    }
+    public IEnumerator InitLevel()
+    {
+        Debug.Log("Initializing Level in GameManager");
+        while (!SceneManager.GetActiveScene().isLoaded)
         {
-            fade = GameObject.Find("CanvasInLevel").GetComponentInChildren<BlackFadeBehaviour>();
+            yield return new WaitForEndOfFrame();
         }
-        if (winScreen == null)
+        Debug.Log("Enabling GameManager");
+        if (instance != this && instance != null)
         {
-            winScreen = GameObject.Find("CanvasInLevel").transform.Find("WinScreen").gameObject;
-            winScreen.transform.Find("Continue").GetComponent<Button>().onClick.AddListener(OnPressNext);
+            Debug.Log("Destroying duplicate GameManager");
+            Destroy(this.gameObject);
+            yield break;
         }
-        if(loseScreen == null)
+        else if (instance == null || instance == this)
         {
-            loseScreen = GameObject.Find("CanvasInLevel").transform.Find("LoseScreen").gameObject;
-            loseScreen.transform.Find("Retru").GetComponent<Button>().onClick.AddListener(OnPressRetry);
+            Debug.Log("Either Setting the first game manager or making sure it is subscribed to SceneLoaded" + _hasFinishedReset);
+            instance = this;
+            DontDestroyOnLoad(instance);
+            if(_hasFinishedReset)
+            {
+                yield break;
+            }
         }
-
-        if (bulletcontroller == null)
-        {
-            bulletcontroller = GameObject.Find("Bullet").GetComponent<bulletcontroller>();
-        }
+        StartCoroutine(fade.LevelStartFade());
+        bulletcontroller = GameObject.Find("Bullet").GetComponent<bulletcontroller>();
+        bulletcontroller.BulletTargetCollision.AddListener(CheckTargets);
+        bulletcontroller.jump.performed += MenuControls;
+        bulletcontroller.retry.performed += OnRetry;
         targets = FindObjectsByType<TargetBehaviour>(FindObjectsSortMode.None).ToList();
-
         foreach (var target in targets)
         {
             print(target.gameObject.name);
@@ -127,32 +124,42 @@ public class GameManager : MonoBehaviour
 
         _hasFinishedReset = true;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (SceneManager.GetActiveScene().isLoaded && !_hasFinishedReset)
-        {
-            OnLoad(SceneManager.GetActiveScene(), LoadSceneMode.Single);
-        }
-        if (targets.Count <= 0 && !hasWon)
-        if(targets.Count <= 0 && _hasFinishedReset)
-        {
-            OnWin();
-            hasWon=true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.R)) OnPressRetry();
-
-        if (hasWon && (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()) )
+        Debug.Log("GameManager detected scene load: " + scene.name);
+        StartCoroutine(InitLevel());
+    }
+    private void MenuControls(InputAction.CallbackContext context)
+    {
+        if (hasWon)
         {
             OnPressNext();
         }
-
-        if(hasLost && (Input.GetKey(KeyCode.Space) || Gamepad.current.buttonSouth.IsPressed()))
+        else if (hasLost)
         {
             OnPressRetry();
         }
+    }
+
+    private void OnRetry(InputAction.CallbackContext context)
+    {
+        OnPressRetry();
+    }
+
+    private void CheckTargets()
+    {
+        if (targets.Count <= 0 && !hasWon)
+        {
+            OnWin();
+            hasWon = true;
+        }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        
+
+        
     }
 
     void OnWin()
@@ -173,13 +180,20 @@ public class GameManager : MonoBehaviour
 
     public void OnPressRetry()
     {
-        StartCoroutine(fade.LevelEndFade(SceneManager.GetActiveScene().name));
+        bulletcontroller.jump.performed -= MenuControls;
+        bulletcontroller.retry.performed -= OnRetry;
+        
         loseScreen.SetActive(false);
         winScreen.SetActive(false);
+        _hasFinishedReset = false;
+        StartCoroutine(fade.LevelEndFade(SceneManager.GetActiveScene().name));
     }
 
     public void OnPressNext()
     {
+        bulletcontroller.jump.performed -= MenuControls;
+        bulletcontroller.retry.performed -= OnRetry;
+        
         StartCoroutine(fade.LevelEndFade(nextLevel));
         loseScreen.SetActive(false);
         winScreen.SetActive(false);

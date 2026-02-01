@@ -157,5 +157,6 @@ public class bulletcontroller : MonoBehaviour
         inputs.Player.Move.performed -= OnMove;
         inputs.Player.Move.canceled -= OnMoveCancelled;
         jump.performed -= OnShoot;
+        inputs.Player.Disable();
     }
 }
