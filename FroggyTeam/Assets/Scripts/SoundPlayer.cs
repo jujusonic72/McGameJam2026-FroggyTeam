@@ -38,7 +38,7 @@ public class SoundPlayer : MonoBehaviour
         }
         Invoke("CheckAllAudioSources", checkFrequency);
     }
-    public void PlaySound(AudioClip clip, bool looping, bool soundFatigue=false)
+    public void PlaySound(AudioClip clip, bool looping, bool soundFatigue=false, float volume=1f)
     {
         AudioSource source = Instantiate(sourceTemplate, transform);
         if (looping)
@@ -50,6 +50,7 @@ public class SoundPlayer : MonoBehaviour
             source.pitch += Random.Range(-0.5f, 0.5f);
         }
         source.clip = clip;
+        source.volume = volume;
         source.Play();
         audioSources.Add(source);
     }

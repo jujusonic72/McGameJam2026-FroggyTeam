@@ -26,6 +26,9 @@ public class bulletcontroller : MonoBehaviour
     [SerializeField]
     CameraMovement bulletCamera;
 
+    [SerializeField]
+    GameObject bullet;
+
     public InputSystem_Actions inputs;
     public InputAction jump;
     public InputAction retry;
@@ -36,9 +39,13 @@ public class bulletcontroller : MonoBehaviour
 
     private bool hasStarted;
 
+    private Renderer bulletRenderer;
+
     private void Start()
     {
         hasStarted = false;
+        bulletRenderer = bullet.GetComponent<Renderer>();
+        bulletRenderer.material.color = GameManager.instance.bulletColor;
     }
 
     private void OnEnable()

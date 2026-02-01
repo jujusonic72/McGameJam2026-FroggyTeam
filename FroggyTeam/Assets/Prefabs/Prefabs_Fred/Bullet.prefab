@@ -223,8 +223,9 @@ MonoBehaviour:
   maxTurn: 60
   forwardSpeed: 8
   bulletCamera: {fileID: 0}
+  bullet: {fileID: 6593288559236185164}
   jump:
-    m_Name: 
+    m_Name: Jump
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 66e92cc9-1a91-4239-bc43-bd2f47a8d460
@@ -233,7 +234,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   retry:
-    m_Name: 
+    m_Name: Retry
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: cad896dc-06c2-4bd9-add6-ce2ae55b732f
