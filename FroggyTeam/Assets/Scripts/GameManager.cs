@@ -353,32 +353,74 @@ public class GameManager : MonoBehaviour
         switch (diceRoll)
         {
             case 1:
-                PrizeWonText.text = "You won the Classic Bullet Skin";
-                skins[0].isUnlocked = true;
+                if (skins[0].isUnlocked == false)
+                {
+                    PrizeWonText.text = "You won the Classic Bullet Skin";
+                }
+                else
+                {
+                    PrizeWonText.text = "Classic Bullet Already Unlocked";
+                }
+                    skins[0].isUnlocked = true;
                 break;
 
             case 2:
-                PrizeWonText.text = "You won the Bazooka Bullet Skin";
+                if (skins[1].isUnlocked == false)
+                {
+                    PrizeWonText.text = "You won the Bazooka Bullet Skin";
+                }
+                else
+                {
+                    PrizeWonText.text = "Bazooka Bullet Already Unlocked";
+                }
                 skins[1].isUnlocked = true;
                 break;
 
             case 3:
-                PrizeWonText.text = "You won the Horse Bullet Skin";
+                if (skins[2].isUnlocked == false)
+                {
+                    PrizeWonText.text = "You won the Horse Bullet Skin";
+                }
+                else
+                {
+                    PrizeWonText.text = "Horse Bullet Already Unlocked";
+                }
                 skins[2].isUnlocked = true;
                 break;
 
             case 4:
-                PrizeWonText.text = "You won the Nerf Bullet Skin";
+                if (skins[3].isUnlocked == false)
+                {
+                    PrizeWonText.text = "You won the Nerf Bullet Skin";
+                }
+                else
+                {
+                    PrizeWonText.text = "Nerf Bullet Already Unlocked";
+                }
                 skins[3].isUnlocked = true;
                 break;
 
             case 5:
-                PrizeWonText.text = "You won the Roblox Bullet Skin";
+                if (skins[4].isUnlocked == false)
+                {
+                    PrizeWonText.text = "You won the Roblox Bullet Skin";
+                }
+                else
+                {
+                    PrizeWonText.text = "Roblox Bullet Already Unlocked";
+                }
                 skins[4].isUnlocked = true;
                 break;
 
             case 6:
-                PrizeWonText.text = "You won Shotgun Bullet Skin";
+                if (skins[5].isUnlocked == false)
+                {
+                    PrizeWonText.text = "You won Shotgun Bullet Skin";
+                }
+                else
+                {
+                    PrizeWonText.text = "Shotgun Bullet Already Unlocked";
+                }
                 skins[5].isUnlocked = true;
                 break;
 
